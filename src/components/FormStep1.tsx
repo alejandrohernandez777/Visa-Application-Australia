@@ -3,25 +3,6 @@ import { getDocumentRequirements, countryAssessmentLevels } from '../utils/count
 import type { StepProps } from '../types';
 
 export function FormStep1({ data, updateFields }: StepProps) {
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-
-  const validateForm = () => {
-    const newErrors: Partial<FormData> = {};
-    if (!data.age) newErrors.age = 'Age is required';
-    if (!data.countryOfOrigin) newErrors.countryOfOrigin = 'Please select a country';
-    if (!data.educationLevel) newErrors.educationLevel = 'Please select education level';
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      localStorage.setItem('step1Data', JSON.stringify(data));
-    }
-  };
-
   return (
     <div className="space-y-6">
       <div>
@@ -30,11 +11,10 @@ export function FormStep1({ data, updateFields }: StepProps) {
           type="number"
           value={data.age || ''}
           onChange={e => updateFields({ age: parseInt(e.target.value) })}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${errors.age ? 'border-red-500' : ''}`}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           min="15"
           max="99"
         />
-        {errors.age && <p className="text-red-500 text-xs mt-1">{errors.age}</p>}
       </div>
 
       <div>
@@ -44,7 +24,7 @@ export function FormStep1({ data, updateFields }: StepProps) {
         <select
           value={data.countryOfOrigin}
           onChange={e => updateFields({ countryOfOrigin: e.target.value })}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${errors.countryOfOrigin ? 'border-red-500' : ''}`}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <option value="">Select a country</option>
           {Object.entries(countryAssessmentLevels)
@@ -55,7 +35,6 @@ export function FormStep1({ data, updateFields }: StepProps) {
               </option>
             ))}
         </select>
-        {errors.countryOfOrigin && <p className="text-red-500 text-xs mt-1">{errors.countryOfOrigin}</p>}
       </div>
 
       <div>
@@ -65,7 +44,7 @@ export function FormStep1({ data, updateFields }: StepProps) {
         <select
           value={data.educationLevel}
           onChange={e => updateFields({ educationLevel: e.target.value })}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 ${errors.educationLevel ? 'border-red-500' : ''}`}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <option value="">Select education level</option>
           <option value="HIGH_SCHOOL">High School</option>
@@ -73,7 +52,6 @@ export function FormStep1({ data, updateFields }: StepProps) {
           <option value="MASTERS">Master's Degree</option>
           <option value="PHD">PhD</option>
         </select>
-        {errors.educationLevel && <p className="text-red-500 text-xs mt-1">{errors.educationLevel}</p>}
       </div>
 
       {data.countryOfOrigin && (
