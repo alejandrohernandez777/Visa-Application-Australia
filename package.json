@@ -10,11 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@prisma/client": "latest",
     "lucide-react": "^0.344.0",
-    "pg": "latest",
-    "pg-native": ">=3.0.1",
-    "prisma": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
